@@ -4,17 +4,17 @@
     tools:ignore="MissingDefaultResource">
 
     <item
-        android:id="@+id/tripHistoryScreen"
+        android:id="@+id/menu_trip_history"
         android:icon="@drawable/ic_direction"
         android:title="@string/my_trips" />
 
     <item
-        android:id="@+id/payment_methods"
+        android:id="@+id/menu_payment_methods"
         android:icon="@drawable/ic_wallet"
         android:title="@string/payment_methods" />
 
     <item
-        android:id="@+id/favorite_addresses"
+        android:id="@+id/menu_favorite_addresses"
         android:icon="@drawable/ic_star"
         android:title="@string/favorite_addresses" />
 </menu>

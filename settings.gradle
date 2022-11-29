@@ -10,6 +10,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        mavenCentral{
+            url("https://jitpack.io")
+        }
     }
 }
 rootProject.name = "My Taxi(Jamshid)"

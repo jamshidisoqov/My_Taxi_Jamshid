@@ -15,5 +15,5 @@ fun Double.getFinanceType(): String {
             strBuilder.append(' ')
         }
     }
-    return strBuilder.reverse().append(" sum").toString().trim()
+    return strBuilder.reverse().append(" cум").toString().trim()
 }

@@ -11,8 +11,8 @@ interface Repository {
 
     fun getCurrentLocation(): Flow<ResultData<LatLng>>
 
-    fun getAddressByLocation(latLng: LatLng): Flow<ResultData<List<Address>>>
+    fun getAddressByLocation(latLng: LatLng): Flow<ResultData<Address>>
 
-    fun getAllTrips(): Flow<ResultData<List<TripData>>>
+    fun getAllTrips(): List<TripData>
 
 }

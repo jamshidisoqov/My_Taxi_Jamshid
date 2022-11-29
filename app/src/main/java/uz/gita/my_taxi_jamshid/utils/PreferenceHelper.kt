@@ -1,4 +1,4 @@
-package uz.gita.online_shopping.utils
+package uz.gita.my_taxi_jamshid.utils
 
 import android.content.Context
 import android.content.SharedPreferences

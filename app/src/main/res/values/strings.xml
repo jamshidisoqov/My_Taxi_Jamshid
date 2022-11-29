@@ -56,6 +56,7 @@
     <string name="location_or_network_disable">Местоположение или сеть отключить. Пожалуйста, включите все</string>
     <string name="_95">95</string>
     <string name="default_car_number">KA 484 A</string>
-
+    <string name="error">Ошибка</string>
+    <string name="message">Сообщение</string>
 
 </resources>

@@ -99,4 +99,7 @@ dependencies {
 
     // Facebook Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    //Spin kit for progress
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 }

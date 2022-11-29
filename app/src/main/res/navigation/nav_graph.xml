@@ -27,5 +27,9 @@
         android:id="@+id/tripDetailScreen"
         android:name="uz.gita.my_taxi_jamshid.presentation.screens.details.TripDetailScreen"
         android:label="TripDetailScreen"
-        tools:layout="@layout/screen_trip_details" />
+        tools:layout="@layout/screen_trip_details" >
+        <argument
+            android:name="trip"
+            app:argType="uz.gita.my_taxi_jamshid.data.models.TripData" />
+    </fragment>
 </navigation>
