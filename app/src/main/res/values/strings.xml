@@ -9,4 +9,53 @@
     <string name="user_phone">+998(90) 714–41–02</string>
     <string name="where">Куда?</string>
 
+    <string name="default_from">Оққўрғон (маҳаллий) жомеъ масжиди</string>
+    <string name="default_to">5a улица Асадуллы Ходжаева</string>
+
+    <string name="help">Помощь</string>
+    <string name="update">Повторить</string>
+    <string name="call">Позвонить</string>
+    <string name="driver">Водитель</string>
+    <string name="driver_name">Sadriddin Abdurakhimov</string>
+    <string name="rating">Рейтинг:</string>
+    <string name="five">5</string>
+    <string name="chevrolet_malibu">Чёрный Chevrolet Malibu</string>
+    <string name="trips">Поездки:</string>
+    <string name="str_1885">1 885</string>
+    <string name="common_data">Общие данные</string>
+    <string name="tariff">Тариф</string>
+    <string name="business">Бизнес</string>
+    <string name="payment_method">Способ оплаты</string>
+    <string name="cash">Наличными</string>
+    <string name="order_number">Заказ №</string>
+    <string name="order_number_value">3917866</string>
+    <string name="trip_date_time">Дата и время поездки</string>
+    <string name="trip_date_value">29 Август, 19:20</string>
+    <string name="trip_duration">Продолжительность поездки</string>
+    <string name="trip_duration_value">00:45</string>
+    <string name="cost_calculation">Расчёт стоимости</string>
+    <string name="minimum_amount">Минимальная сумма</string>
+    <string name="minimum_amount_value">5 000 UZS</string>
+    <string name="increased_demand">Повышенный спрос</string>
+    <string name="increased_demand_value">+3 000 UZS</string>
+    <string name="trip_amount">Сумма поездки</string>
+    <string name="trip_amount_value">31 645 UZS</string>
+    <string name="price_pending">Цена ожидании</string>
+    <string name="price_pending_value">0 UZS</string>
+    <string name="total">Итого</string>
+    <string name="total_value">39 600 UZS</string>
+    <string name="delete_data">Удалить данные</string>
+    <string name="cancel">Cancel</string>
+    <string name="gps_network_not_enabled">Сеть GPS не включена</string>
+    <string name="permission_granted">Разрешение получено</string>
+    <string name="permission_denied">В доступе отказано</string>
+    <string name="no_location_detected">Местоположение не обнаружено</string>
+    <string name="my_current_location">Мое текущее местоположение</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="network_error">Сетевая ошибка</string>
+    <string name="location_or_network_disable">Местоположение или сеть отключить. Пожалуйста, включите все</string>
+    <string name="_95">95</string>
+    <string name="default_car_number">KA 484 A</string>
+
+
 </resources>
