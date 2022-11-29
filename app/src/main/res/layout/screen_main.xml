@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<uz.gita.my_taxi_jamshid.utils.AdvanceDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <include
+        android:id="@+id/content_main"
+        layout="@layout/layout_content_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
+        style="@style/Widget.Custom.NavigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/color_content_profile"
+        android:clipToPadding="false"
+        android:fitsSystemWindows="true"
+        android:paddingVertical="@dimen/margin_large"
+        app:headerLayout="@layout/layout_header_nav"
+        app:itemTextColor="@color/white"
+        app:menu="@menu/menu_nav" />
+
+
+</uz.gita.my_taxi_jamshid.utils.AdvanceDrawerLayout>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_phone">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small"
+        android:src="@drawable/ic_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/CircleImageView" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_my_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_middle_large"
+        android:src="@drawable/ic_my_location"
+        app:layout_constraintBottom_toTopOf="@id/container_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/CircleImageView" />
+
+    <ProgressBar
+        android:id="@+id/pb_progress_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/image_my_location"
+        app:layout_constraintEnd_toEndOf="@id/image_my_location"
+        app:layout_constraintStart_toStartOf="@id/image_my_location"
+        app:layout_constraintTop_toTopOf="@id/image_my_location" />
+
+
+    <!--  <androidx.fragment.app.FragmentContainerView
+          android:id="@+id/container_map"
+          android:name="uz.gita.my_taxi_jamshid.presentation.screens.main.MapHelper"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />-->
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_centre_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_centre_location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/container_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="@dimen/margin_middle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.InnerTop">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_middle_large"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#F8F8F8"
+                app:cardElevation="0dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.InnerTop">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/margin_standard"
+                    android:layout_marginVertical="@dimen/margin_standard"
+                    android:background="@null"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_location_red" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvAddressName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/margin_middle"
+                        android:fontFamily="@font/lato_bold"
+                        android:textColor="@color/color_phone" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="#F0F0F0"
+                app:cardElevation="0dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance_Custom_Corner_Bottom">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/margin_standard"
+                    android:layout_marginVertical="@dimen/margin_standard"
+                    android:background="@null"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imgLocation"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_location_blue"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_middle"
+                        android:fontFamily="@font/lato_bold"
+                        android:text="@string/where"
+                        android:textColor="@color/color_tv_where"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imgLocation"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="@dimen/margin_middle_large"
+                        android:background="#CBCBCB"
+                        app:layout_constraintBottom_toBottomOf="@id/imgArrow"
+                        app:layout_constraintEnd_toStartOf="@id/imgArrow"
+                        app:layout_constraintTop_toTopOf="@id/imgArrow" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imgArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:src="@drawable/ic_next"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

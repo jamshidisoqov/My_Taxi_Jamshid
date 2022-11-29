@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+
+    <item
+        android:id="@+id/tripHistoryScreen"
+        android:icon="@drawable/ic_direction"
+        android:title="@string/my_trips" />
+
+    <item
+        android:id="@+id/payment_methods"
+        android:icon="@drawable/ic_wallet"
+        android:title="@string/payment_methods" />
+
+    <item
+        android:id="@+id/favorite_addresses"
+        android:icon="@drawable/ic_star"
+        android:title="@string/favorite_addresses" />
+</menu>

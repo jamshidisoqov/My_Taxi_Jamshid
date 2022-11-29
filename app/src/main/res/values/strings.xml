@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Taxi(Jamshid)</string>
+
+    <string name="my_trips">Мои поездки</string>
+    <string name="payment_methods">Способы оплаты</string>
+    <string name="favorite_addresses">Избранные адреса</string>
+    <string name="first_name">Jamshid</string>
+    <string name="last_name">Isoqov</string>
+    <string name="user_phone">+998(90) 714–41–02</string>
+    <string name="where">Куда?</string>
+
+</resources>
