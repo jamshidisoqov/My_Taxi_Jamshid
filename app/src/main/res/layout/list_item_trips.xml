@@ -111,7 +111,7 @@
                     tools:text="12 900 cум" />
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_car_type"
+                    android:id="@+id/image_car_type"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:src="@drawable/white_car"

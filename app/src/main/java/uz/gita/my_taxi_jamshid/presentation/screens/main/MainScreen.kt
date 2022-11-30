@@ -1,8 +1,15 @@
 package uz.gita.my_taxi_jamshid.presentation.screens.main
 
+import android.Manifest
+import android.content.Intent
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Gravity
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,20 +19,23 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import ru.ldralighieri.corbind.view.clicks
+import uz.gita.my_taxi_jamshid.BuildConfig
 import uz.gita.my_taxi_jamshid.R
 import uz.gita.my_taxi_jamshid.databinding.ScreenMainBinding
 import uz.gita.my_taxi_jamshid.presentation.presenter.MainViewModelImpl
 import uz.gita.my_taxi_jamshid.utils.EVENT_DEBOUNCE_TIME_OUT
-import uz.gita.my_taxi_jamshid.utils.extensions.hideProgress
-import uz.gita.my_taxi_jamshid.utils.extensions.showError
-import uz.gita.my_taxi_jamshid.utils.extensions.showMessage
-import uz.gita.my_taxi_jamshid.utils.extensions.showProgress
+import uz.gita.my_taxi_jamshid.utils.extensions.*
 
 // Created by Jamshid Isoqov an 11/29/2022
 @AndroidEntryPoint
@@ -39,8 +49,18 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
 
     private lateinit var centerScreenCoordinate: LatLng
 
+    private val requestPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) permissionApprovedSnackBar() else permissionDeniedSnackBar()
+        }
+
+    private var job: Job? = null
+
     @OptIn(FlowPreview::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        if (isLocationEnabled()) locationRequest()
+        else showAlert()
 
         mapInit()
 
@@ -69,7 +89,7 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
 
         viewModel.currentLocationFlow.onEach {
             if (this@MainScreen::mGoogleMap.isInitialized) {
-                val cameraUpdate = CameraUpdateFactory.newLatLngZoom(it, 12f)
+                val cameraUpdate = CameraUpdateFactory.newLatLngZoom(it, 16f)
                 mGoogleMap.animateCamera(cameraUpdate)
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -78,6 +98,13 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
             viewBinding.drawerContainer.openDrawer(GravityCompat.START)
         }
 
+        viewBinding.contentMain.imageMyLocation
+            .clicks()
+            .debounce(100L)
+            .onEach {
+                if (isLocationEnabled()) locationRequest()
+                else showAlert()
+            }.launchIn(lifecycleScope)
         viewBinding.apply {
 
             drawerContainer.setRadius(Gravity.START, 35f)
@@ -96,6 +123,7 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
 
                     }
                 }
+                drawerContainer.closeDrawer(GravityCompat.START)
                 true
             }
 
@@ -106,6 +134,7 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
 
     private fun mapInit() {
         val mapScreen = childFragmentManager.findFragmentById(R.id.container_map) as MapHelper
+
         mapScreen.getMapAsync(mapScreen)
 
         mapScreen.onMapReady { googleMap: GoogleMap ->
@@ -123,15 +152,71 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
             mGoogleMap.setOnCameraMoveListener {
                 centerScreenCoordinate = mGoogleMap.cameraPosition.target
             }
+
             mGoogleMap.setOnCameraIdleListener {
-                viewModel.getAddressByLocation(
-                    LatLng(
-                        centerScreenCoordinate.latitude,
-                        centerScreenCoordinate.longitude
-                    )
-                )
+                job?.cancel()
+                job = viewLifecycleOwner.lifecycleScope.launch {
+                    delay(1000L)
+                    if (hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        viewModel.getAddressByLocation(
+                            LatLng(
+                                centerScreenCoordinate.latitude,
+                                centerScreenCoordinate.longitude
+                            )
+                        )
+                    }
+                }
             }
         }
+    }
+
+    private fun locationRequest() {
+        if (hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) viewModel.requestCurrentLocation()
+        else requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+    }
+
+
+    private fun showAlert() {
+        val dialog = AlertDialog.Builder(requireContext())
+        dialog.setTitle(getString(R.string.enable_location))
+            .setMessage(getString(R.string.enable_location_message))
+            .setPositiveButton(getString(R.string.location_settings)) { _, _ ->
+                val myIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(myIntent)
+            }
+            .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
+        dialog.show()
+    }
+
+    private fun permissionApprovedSnackBar() {
+        Snackbar.make(
+            viewBinding.root, R.string.permission_approved_explanation,
+            BaseTransientBottomBar.LENGTH_LONG
+        ).show()
+    }
+
+    private fun permissionDeniedSnackBar() {
+        Snackbar.make(
+            viewBinding.root,
+            R.string.fine_permission_denied_explanation,
+            BaseTransientBottomBar.LENGTH_LONG
+        )
+            .setAction(R.string.settings) { launchSettings() }
+            .setActionTextColor(Color.WHITE)
+            .show()
+    }
+
+
+    private fun launchSettings() {
+        val intent = Intent()
+        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+        val uri = Uri.fromParts(
+            "package",
+            BuildConfig.APPLICATION_ID, null
+        )
+        intent.data = uri
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 
 }

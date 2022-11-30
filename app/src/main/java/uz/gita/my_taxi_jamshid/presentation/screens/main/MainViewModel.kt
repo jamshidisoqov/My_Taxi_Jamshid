@@ -17,7 +17,7 @@ interface MainViewModel {
 
     val addressFlow: SharedFlow<String>
 
-    val currentLocationFlow: StateFlow<LatLng>
+    val currentLocationFlow: SharedFlow<LatLng>
 
     fun getAddressByLocation(latLng: LatLng)
 

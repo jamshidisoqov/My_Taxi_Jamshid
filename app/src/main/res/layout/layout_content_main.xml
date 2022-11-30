@@ -4,37 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/image_my_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_middle_large"
-        android:src="@drawable/ic_my_location"
-        app:layout_constraintBottom_toTopOf="@id/container_main"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:shapeAppearanceOverlay="@style/CircleImageView" />
-
-    <ProgressBar
-        android:id="@+id/pb_progress_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/image_my_location"
-        app:layout_constraintEnd_toEndOf="@id/image_my_location"
-        app:layout_constraintStart_toStartOf="@id/image_my_location"
-        app:layout_constraintTop_toTopOf="@id/image_my_location" />
-
-
-      <androidx.fragment.app.FragmentContainerView
-          android:id="@+id/container_map"
-          android:name="uz.gita.my_taxi_jamshid.presentation.screens.main.MapHelper"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container_map"
+        android:name="uz.gita.my_taxi_jamshid.presentation.screens.main.MapHelper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -45,6 +22,16 @@
         android:src="@drawable/ic_menu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/CircleImageView" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_my_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_middle_large"
+        android:src="@drawable/ic_my_location"
+        app:layout_constraintBottom_toTopOf="@id/container_main"
+        app:layout_constraintEnd_toEndOf="parent"
         app:shapeAppearanceOverlay="@style/CircleImageView" />
 
     <com.google.android.material.imageview.ShapeableImageView

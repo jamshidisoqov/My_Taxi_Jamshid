@@ -3,6 +3,7 @@ package uz.gita.my_taxi_jamshid.presentation.presenter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -41,6 +42,7 @@ class TripHistoryViewModelImpl @Inject constructor(
     override fun getAllTrips() {
         viewModelScope.launch {
             loadingFlow.emit(true)
+            delay(2000L)
             if (hasConnection()) {
                 tripHistoryFlow.emit(tripsUseCase.getAllTrips())
             }else{

@@ -24,10 +24,18 @@
             android:layout_height="0dp"
             android:background="@color/white"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintBottom_toBottomOf="@id/guideline"
+            app:layout_constraintBottom_toTopOf="@id/spacer_map"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Space
+            android:id="@+id/spacer_map"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/icon_back"
@@ -51,6 +59,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_bottom_sheet"
         android:overScrollMode="never"
+        style="@style/ModalBottomSheet"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -295,7 +304,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="@dimen/margin_small"
                                 android:gravity="center_vertical"
-                                android:text=""
+                                android:text="@string/call"
                                 android:textColor="#409060" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
