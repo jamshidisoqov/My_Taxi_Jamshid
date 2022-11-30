@@ -11,4 +11,5 @@
     <color name="color_progress">#2E73DA</color>
     <color name="color_content_profile">#272724</color>
     <color name="color_tv_where">#434343</color>
+    <color name="color_error">#DD2417</color>
 </resources>

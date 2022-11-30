@@ -23,6 +23,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String","MAP_API_KEY","\"AIzaSyB88Y--vbmjOWwUPMIJ71APPpAKc5ODOMQ\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -99,4 +102,9 @@ dependencies {
 
     // Facebook Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    //Spin kit for progress
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    implementation 'com.karumi:dexter:6.2.3'
 }

@@ -7,7 +7,37 @@
 
     <fragment
         android:id="@+id/mainScreen"
-        tools:layout="@layout/screen_main"
         android:name="uz.gita.my_taxi_jamshid.presentation.screens.main.MainScreen"
-        android:label="MainScreen" />
+        android:label="MainScreen"
+        tools:layout="@layout/screen_main">
+        <action
+            android:id="@+id/action_mainScreen_to_tripHistoryScreen2"
+            app:destination="@id/tripHistoryScreen2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/tripHistoryScreen2"
+        android:name="uz.gita.my_taxi_jamshid.presentation.screens.hisitory.TripHistoryScreen"
+        android:label="TripHistoryScreen"
+        tools:layout="@layout/screen_trip_history">
+        <action
+            android:id="@+id/action_tripHistoryScreen2_to_tripDetailScreen"
+            app:destination="@id/tripDetailScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/tripDetailScreen"
+        android:name="uz.gita.my_taxi_jamshid.presentation.screens.details.TripDetailScreen"
+        android:label="TripDetailScreen"
+        tools:layout="@layout/screen_trip_details" >
+        <argument
+            android:name="trip"
+            app:argType="uz.gita.my_taxi_jamshid.data.models.TripData" />
+    </fragment>
 </navigation>

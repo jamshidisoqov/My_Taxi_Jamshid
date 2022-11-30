@@ -10,6 +10,11 @@
         <item name="shapeAppearanceOverlay">@style/ShapeAppearance_custom_corner_top</item>
     </style>
 
+    <style name="ModalBottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="behavior_peekHeight">400dp</item>
+        <item name="behavior_hideable">false</item>
+    </style>
+
     <style name="ShapeAppearance_custom_corner_top" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">@dimen/margin_standard</item>
