@@ -19,20 +19,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/ic_menu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/CircleImageView" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/image_my_location"
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progress_spin_kit"
+        style="@style/SpinKitView.FadingCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/color_progress"
+        app:layout_constraintBottom_toBottomOf="@id/image_my_location"
+        app:layout_constraintEnd_toEndOf="@id/image_my_location"
+        app:layout_constraintStart_toStartOf="@id/image_my_location"
+        app:layout_constraintTop_toTopOf="@id/image_my_location" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_my_location"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="@dimen/margin_middle_large"
+        android:background="@drawable/bg_circle_image"
+        android:clickable="true"
+        app:contentPadding="10dp"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:visibility="invisible"
         android:src="@drawable/ic_my_location"
         app:layout_constraintBottom_toTopOf="@id/container_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:shapeAppearanceOverlay="@style/CircleImageView" />
+
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_centre_location"

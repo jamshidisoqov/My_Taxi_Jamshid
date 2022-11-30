@@ -59,21 +59,23 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
     @OptIn(FlowPreview::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        if (isLocationEnabled()) locationRequest()
-        else showAlert()
-
         mapInit()
 
+
         viewModel.loadingFlow.onEach {
-            if (it) showProgress() else hideProgress()
+            viewBinding.apply {
+                if (it) {
+                    contentMain.progressSpinKit.visible()
+                    contentMain.imageMyLocation.inVisible()
+                } else {
+                    contentMain.progressSpinKit.inVisible()
+                    contentMain.imageMyLocation.visible()
+                }
+            }
         }.launchIn(lifecycleScope)
 
         viewModel.messageFlow.onEach {
             showMessage(it)
-        }.launchIn(lifecycleScope)
-
-        viewModel.errorFlow.onEach {
-            showError(it)
         }.launchIn(lifecycleScope)
 
         viewBinding.contentMain.imageMyLocation
@@ -91,6 +93,8 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
             if (this@MainScreen::mGoogleMap.isInitialized) {
                 val cameraUpdate = CameraUpdateFactory.newLatLngZoom(it, 16f)
                 mGoogleMap.animateCamera(cameraUpdate)
+            }else{
+                centerScreenCoordinate = it
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
@@ -157,14 +161,12 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
                 job?.cancel()
                 job = viewLifecycleOwner.lifecycleScope.launch {
                     delay(1000L)
-                    if (hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                        viewModel.getAddressByLocation(
-                            LatLng(
-                                centerScreenCoordinate.latitude,
-                                centerScreenCoordinate.longitude
-                            )
+                    viewModel.getAddressByLocation(
+                        LatLng(
+                            centerScreenCoordinate.latitude,
+                            centerScreenCoordinate.longitude
                         )
-                    }
+                    )
                 }
             }
         }

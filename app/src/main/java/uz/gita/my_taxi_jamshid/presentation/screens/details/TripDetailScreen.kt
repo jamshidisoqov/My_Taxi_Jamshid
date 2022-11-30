@@ -7,6 +7,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -41,6 +42,10 @@ class TripDetailScreen : Fragment(R.layout.screen_trip_details) {
         val destination = args.trip.destinationData
 
         mapInit(destination)
+
+        viewBinding.iconBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         viewModel.loadingFlow.onEach {
             if (it) showProgress() else hideProgress()

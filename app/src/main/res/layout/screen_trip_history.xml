@@ -19,6 +19,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="@dimen/margin_middle"
+            android:background="@drawable/bg_circle_image"
             android:src="@drawable/ic_back"
             app:contentPadding="@dimen/margin_middle" />
 

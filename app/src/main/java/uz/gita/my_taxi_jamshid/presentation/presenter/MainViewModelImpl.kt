@@ -37,7 +37,7 @@ class MainViewModelImpl @Inject constructor(
 
     override val addressFlow = MutableSharedFlow<String>()
 
-    override val currentLocationFlow = MutableSharedFlow<LatLng>()
+    override val currentLocationFlow = MutableStateFlow(LatLng(41.3341242, 69.2983809))
 
     @OptIn(FlowPreview::class)
     override fun getAddressByLocation(latLng: LatLng) {
