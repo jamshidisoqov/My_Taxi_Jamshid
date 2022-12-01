@@ -1,5 +1,6 @@
 package uz.gita.my_taxi_jamshid.presentation.screens.main
 
+import androidx.lifecycle.LiveData
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +18,7 @@ interface MainViewModel {
 
     val addressFlow: SharedFlow<String>
 
-    val currentLocationFlow: StateFlow<LatLng>
+    val currentLocationFlow: LiveData<LatLng>
 
     fun getAddressByLocation(latLng: LatLng)
 

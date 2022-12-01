@@ -1,5 +1,7 @@
 package uz.gita.my_taxi_jamshid.presentation.presenter
 
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
@@ -37,7 +39,7 @@ class MainViewModelImpl @Inject constructor(
 
     override val addressFlow = MutableSharedFlow<String>()
 
-    override val currentLocationFlow = MutableStateFlow(LatLng(41.3341242, 69.2983809))
+    override val currentLocationFlow = MutableLiveData(LatLng(41.3341242, 69.2983809))
 
     @OptIn(FlowPreview::class)
     override fun getAddressByLocation(latLng: LatLng) {
@@ -66,10 +68,13 @@ class MainViewModelImpl @Inject constructor(
                 .debounce(MAP_DEBOUNCE_TIME_OUT)
                 .collectLatest { result ->
                     result.onSuccess { data ->
-                        currentLocationFlow.emit(data)
+                        currentLocationFlow.value = data
+                        Log.d("TTT", "requestCurrentLocation:Success ")
                     }.onMessage { message ->
                         messageFlow.emit(message)
+                        Log.d("TTT", "requestCurrentLocation:${message} ")
                     }.onError { error ->
+                        Log.d("TTT", "requestCurrentLocation:${error.message} ")
                         errorFlow.emit(error.getMessage())
                     }
                     loadingFlow.emit(false)

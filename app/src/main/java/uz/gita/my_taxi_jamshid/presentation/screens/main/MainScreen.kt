@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -34,8 +35,10 @@ import uz.gita.my_taxi_jamshid.BuildConfig
 import uz.gita.my_taxi_jamshid.R
 import uz.gita.my_taxi_jamshid.databinding.ScreenMainBinding
 import uz.gita.my_taxi_jamshid.presentation.presenter.MainViewModelImpl
+import uz.gita.my_taxi_jamshid.utils.ACCESS_FINE_LOCATION
 import uz.gita.my_taxi_jamshid.utils.EVENT_DEBOUNCE_TIME_OUT
 import uz.gita.my_taxi_jamshid.utils.extensions.*
+
 
 // Created by Jamshid Isoqov an 11/29/2022
 @AndroidEntryPoint
@@ -51,7 +54,12 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
 
     private val requestPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) permissionApprovedSnackBar() else permissionDeniedSnackBar()
+            if (isGranted) {
+                permissionApprovedSnackBar()
+                viewModel.requestCurrentLocation()
+            }
+            else
+                permissionDeniedSnackBar()
         }
 
     private var job: Job? = null
@@ -60,7 +68,6 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         mapInit()
-
 
         viewModel.loadingFlow.onEach {
             viewBinding.apply {
@@ -89,14 +96,15 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
             viewBinding.contentMain.tvAddressName.text = it
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        viewModel.currentLocationFlow.onEach {
+        viewModel.currentLocationFlow.observe(viewLifecycleOwner) {
+            Log.d("TTT", "onViewCreated: $it")
             if (this@MainScreen::mGoogleMap.isInitialized) {
                 val cameraUpdate = CameraUpdateFactory.newLatLngZoom(it, 16f)
                 mGoogleMap.animateCamera(cameraUpdate)
-            }else{
+            } else {
                 centerScreenCoordinate = it
             }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+        }
 
         viewBinding.contentMain.imageMenu.setOnClickListener {
             viewBinding.drawerContainer.openDrawer(GravityCompat.START)
@@ -106,8 +114,16 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
             .clicks()
             .debounce(100L)
             .onEach {
-                if (isLocationEnabled()) locationRequest()
-                else showAlert()
+                if (isLocationEnabled()) {
+                    if (hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        Log.d("TTT", "onViewCreated:Current")
+                        viewModel.requestCurrentLocation()
+                    } else {
+                      locationRequest()
+                    }
+                } else {
+                    showMessage(getString(R.string.location_or_network_disable))
+                }
             }.launchIn(lifecycleScope)
         viewBinding.apply {
 
@@ -137,6 +153,7 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
     override fun onMarkerClick(p0: Marker): Boolean = false
 
     private fun mapInit() {
+
         val mapScreen = childFragmentManager.findFragmentById(R.id.container_map) as MapHelper
 
         mapScreen.getMapAsync(mapScreen)
@@ -169,14 +186,14 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
                     )
                 }
             }
+
         }
     }
 
     private fun locationRequest() {
-        if (hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) viewModel.requestCurrentLocation()
-        else requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        if (hasPermission(ACCESS_FINE_LOCATION)) viewModel.requestCurrentLocation()
+        else requestPermission.launch(ACCESS_FINE_LOCATION)
     }
-
 
     private fun showAlert() {
         val dialog = AlertDialog.Builder(requireContext())
@@ -207,7 +224,6 @@ class MainScreen : Fragment(R.layout.screen_main), GoogleMap.OnMarkerClickListen
             .setActionTextColor(Color.WHITE)
             .show()
     }
-
 
     private fun launchSettings() {
         val intent = Intent()
